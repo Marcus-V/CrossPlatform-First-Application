@@ -1,65 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, Keyboard} from 'react-native';
 
-
-import { useRef, useState, useEffect } from "react";
-import Tasks from './components/List';
-import {Colors} from './components/Colors'
+import {Task} from "./components/Task";
+import {Colors} from './components/Colors';
 
 export default function App() {
-  const [task, setTask] = useState();
-  const [taskItems, setTaskitems] = useState([]);
-
-  //app.js additem from class
-  const handlerAddTask = () =>{
-    //console.log(task);
-    Keyboard.dismiss();
-    setTaskitems([...taskItems,task]);
-    setTask(null);
-  }
-
-  const handlerDeleteTask = (index) =>{
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskitems(itemsCopy);
-  }
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <Text style={styles.titleSection}>My Tasks</Text>
-        <View style={styles.itemsSection}>
-          {
-            taskItems.map((item , index)=>{
-              return (
-                <TouchableOpacity
-                key={index}
-                onPress={()=>handlerDeleteTask(index)}>
-                  <Tasks text={item}/>
-                </TouchableOpacity>
-              )
-            })
-          }
-        </View>
+        <Text style={styles.titleSection}>Title</Text>
       </View>
-      <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.writeTaskWrapper}
-      >
-        <TextInput style={styles.input} 
-        placeholder="Write a task"
-        value={task}
-        onChangeText={text => setTask(text)}
-        clearButtonMode="always" //does not work
-        />
-        <TouchableOpacity onPress={() => handlerAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-
+      <View style={style.itemsSection}></View>
+      
     </View>
 
     
